@@ -19,6 +19,9 @@ int main(int argc, char const *argv[])
     tree.insert(5);
     tree.insert(8);
     tree.insert(4);
+    tree.insert(4);
+    tree.insert(4);
+    tree.insert(4);
 
     std::regex r ("[, ]+");
     std::cout << std::regex_replace(tree.inorderToString(tree.root),r,", ");
