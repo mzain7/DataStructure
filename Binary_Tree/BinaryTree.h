@@ -1,4 +1,7 @@
 #include <iostream>
+#include <queue>
+#include <stack>
+
 template <typename T>
 struct Node
 {
@@ -21,6 +24,8 @@ public:
     Node<T> *search(T value);
     void deleteRoot();
     void deleteNode(T value);
+    void bfs_iterative();
+    void dfs_iterative();
     // void rearrange();
 };
 template <typename T>
@@ -242,6 +247,59 @@ void BinaryTree<T>::deleteNode(T value)
         }
     }
 }
+
+template <typename T>
+void BinaryTree<T>::bfs_iterative()
+{
+    if (root != nullptr)
+    {
+        std::queue<Node*> q;
+        Node* temp = root;
+        q.push(temp);
+        while (!q.empty())
+        {
+            temp = q.front();
+            q.pop();
+            std::cout << temp->data << " ";
+            if (temp->left != nullptr)
+            {
+                q.push(temp->left);
+            }
+            if (temp->right != nullptr)
+            {
+                q.push(temp->right);
+            }
+        }
+        std::cout << std::endl;
+    }
+}
+
+template <typename T>
+void BinaryTree<T>::dfs_iterative()
+{
+    if (root != nullptr)
+    {
+        std::stack<Node*> s;
+        Node* temp = root;
+        s.push(temp);
+        while (!s.empty())
+        {
+            temp = s.top();
+            s.pop();
+            std::cout << temp->data << " ";
+            if (temp->right != nullptr)
+            {
+                s.push(temp->right);
+            }
+            if (temp->left != nullptr)
+            {
+                s.push(temp->left);
+            }
+        }
+        std::cout << std::endl;
+    }
+}
+
 
 // template <class T>
 // void BinaryTree<T>::rearrange()
