@@ -305,22 +305,10 @@ void BinaryTree<T>::deleteNode(T value)
     }
 
 
-
-
-
-
-
-
-
-    // Node<T> *node = search(value);
-    // deleteNode(node);
-
-
 }
 template <class T>
 void BinaryTree<T>::deleteNode(Node<T> *node)
 {
-    std::cout<<"RUNNING SUCCESSOR";
     Node<T> **successor_arr = successor(node);
     node->data = successor_arr[0]->data;
     if (successor_arr[0]->right == nullptr)

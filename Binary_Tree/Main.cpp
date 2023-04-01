@@ -28,7 +28,6 @@ int main(int argc, char const *argv[])
     // std::cout << tree.search(4)->data;
     // tree.deleteRoot();
     std::cout <<std::endl<< std::regex_replace(tree.inorderToString(tree.root),r,", ");
-    std::cout << tree.successor(tree.search(24))[0]->data << " and " << tree.successor(tree.search(24))[1]->data;
     tree.deleteNode(24);
     std::cout <<std::endl<< std::regex_replace(tree.inorderToString(tree.root),r,", ");
     // tree.rearrange();
