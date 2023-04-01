@@ -24,8 +24,10 @@ public:
     Node<T> *search(T value);
     void deleteRoot();
     void deleteNode(T value);
+    void deleteNode(Node<T> *node);
     void bfs_iterative();
     void dfs_iterative();
+    Node<T> **successor(Node<T> *);
     // void rearrange();
 };
 template <typename T>
@@ -95,11 +97,11 @@ template <class T>
 Node<T> *BinaryTree<T>::search(T value)
 {
     Node<T> *node = root;
-    while (node->left != nullptr || node->right != nullptr)
+    while (node != nullptr)
     {
         if (node->data == value)
         {
-            return node;
+            break;
         }
         else if (value > node->data)
         {
@@ -111,140 +113,232 @@ Node<T> *BinaryTree<T>::search(T value)
         }
     }
 
-    return nullptr;
+    return node;
 }
 
 template <class T>
 void BinaryTree<T>::deleteRoot()
 {
-    Node<T> *current = root;
-    if (current->left == nullptr && current->right == nullptr)
-    {
-        delete current;
-    }
-    else if (current->left == nullptr)
-    {
-        root = current->right;
-        delete current;
-    }
-    else if (current->right == nullptr)
-    {
-        root = current->left;
-        delete current;
-    }
-    else
-    {
-        current = current->left;
+    // Node<T> *current = root;
+    // if (current->left == nullptr && current->right == nullptr)
+    // {
+    //     delete current;
+    // }
+    // else if (current->left == nullptr)
+    // {
+    //     root = current->right;
+    //     delete current;
+    // }
+    // else if (current->right == nullptr)
+    // {
+    //     root = current->left;
+    //     delete current;
+    // }
+    // else
+    // {
+    //     current = current->left;
 
-        while (current->right != nullptr)
-        {
-            current = current->right;
-        }
-        current->right = root->right;
+    //     while (current->right != nullptr)
+    //     {
+    //         current = current->right;
+    //     }
+    //     current->right = root->right;
 
-        current = root;
+    //     current = root;
 
-        root = root->left;
+    //     root = root->left;
 
-        delete current;
-    }
+    //     delete current;
+    // }
+
+    Node<T> *temp = root;
 }
 
 template <class T>
 void BinaryTree<T>::deleteNode(T value)
 {
-    if (root->data == value)
+    // if (root->data == value)
+    // {
+    //     deleteRoot();
+    // }
+    // else
+    // {
+    //     Node<T> *current = root, *previous = nullptr;
+    //     bool found = false;
+    //     while (current->left != nullptr || current->right != nullptr)
+    //     {
+    //         if (current->data == value)
+    //         {
+    //             found = true;
+    //             break;
+    //         }
+    //         else if (value > current->data)
+    //         {
+    //             previous = current;
+    //             current = current->right;
+    //         }
+    //         else if (value < current->data)
+    //         {
+    //             previous = current;
+    //             current = current->left;
+    //         }
+    //     }
+
+    //     if (!found)
+    //     {
+    //         return;
+    //     }
+
+    //     Node<T> *node = current;
+    //     if (node->left == nullptr && node->right == nullptr)
+    //     {
+    //         if (current->data > previous->data)
+    //         {
+    //             previous->right = nullptr;
+    //         }
+    //         else
+    //         {
+    //             previous->left = nullptr;
+    //         }
+    //         delete current;
+    //     }
+    //     else if (node->left == nullptr)
+    //     {
+    //         if (current->data > previous->data)
+    //         {
+    //             previous->right = current->right;
+    //             delete current;
+    //         }
+    //         else
+    //         {
+    //             previous->left = current->right;
+    //             delete current;
+    //         }
+    //     }
+    //     else if (node->right == nullptr)
+    //     {
+    //         if (current->data > previous->data)
+    //         {
+    //             previous->right = current->left;
+    //             delete current;
+    //         }
+    //         else
+    //         {
+    //             previous->left = current->left;
+    //             delete current;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         node = node->left;
+
+    //         while (node->right != nullptr)
+    //         {
+    //             node = node->right;
+    //         }
+    //         node->right = current->right;
+
+    //         if (current->data > previous->data)
+    //         {
+    //             previous->right = current->left;
+    //             delete current;
+    //         }
+    //         else
+    //         {
+    //             previous->left = current->left;
+    //             delete current;
+    //         }
+    //     }
+    // }
+
+    Node<T> *node = root, *parentNode = nullptr;
+    while (node != nullptr)
     {
-        deleteRoot();
+        if (node->data == value)
+        {
+            break;
+        }
+        else if (value > node->data)
+        {
+            parentNode = node;
+            node = node->right;
+        }
+        else if (value < node->data)
+        {
+            parentNode = node;
+            node = node->left;
+        }
     }
-    else
+
+    if(node == nullptr)
     {
-        Node<T> *current = root, *previous = nullptr;
-        bool found = false;
-        while (current->left != nullptr || current->right != nullptr)
-        {
-            if (current->data == value)
-            {
-                found = true;
-                break;
-            }
-            else if (value > current->data)
-            {
-                previous = current;
-                current = current->right;
-            }
-            else if (value < current->data)
-            {
-                previous = current;
-                current = current->left;
-            }
-        }
+        return;
+    }
 
-        if (!found)
-        {
-            return;
+    if(node->left == nullptr && node->right == nullptr)
+    {
+        if(node->data <= parentNode->data){
+            parentNode->left = nullptr;
+        }else{
+            parentNode->right = nullptr;
         }
+        delete (node);
 
-        Node<T> *node = current;
-        if (node->left == nullptr && node->right == nullptr)
-        {
-            if (current->data > previous->data)
-            {
-                previous->right = nullptr;
-            }
-            else
-            {
-                previous->left = nullptr;
-            }
-            delete current;
+    }else if(node->left == nullptr){
+        if(node->data <= parentNode->data){
+            parentNode->left = node->right;
+        }else{
+            parentNode->right = node->right;
         }
-        else if (node->left == nullptr)
-        {
-            if (current->data > previous->data)
-            {
-                previous->right = current->right;
-                delete current;
-            }
-            else
-            {
-                previous->left = current->right;
-                delete current;
-            }
+        delete (node);
+
+    }else if(node->right == nullptr){
+        if(node->data <= parentNode->data){
+            parentNode->left = node->left;
+        }else{
+            parentNode->right = node->left;
         }
-        else if (node->right == nullptr)
+        delete (node);
+
+    }else{
+        deleteNode(node);
+    }
+
+
+
+
+
+
+
+
+
+    // Node<T> *node = search(value);
+    // deleteNode(node);
+
+
+}
+template <class T>
+void BinaryTree<T>::deleteNode(Node<T> *node)
+{
+    std::cout<<"RUNNING SUCCESSOR";
+    Node<T> **successor_arr = successor(node);
+    node->data = successor_arr[0]->data;
+    if (successor_arr[0]->right == nullptr)
+    {
+        if (successor_arr[0]->data < successor_arr[1]->data)
         {
-            if (current->data > previous->data)
-            {
-                previous->right = current->left;
-                delete current;
-            }
-            else
-            {
-                previous->left = current->left;
-                delete current;
-            }
+            successor_arr[1]->left = nullptr;
         }
         else
         {
-            node = node->left;
-
-            while (node->right != nullptr)
-            {
-                node = node->right;
-            }
-            node->right = current->right;
-
-            if (current->data > previous->data)
-            {
-                previous->right = current->left;
-                delete current;
-            }
-            else
-            {
-                previous->left = current->left;
-                delete current;
-            }
+            successor_arr[1]->right = nullptr;
         }
+
+        delete (successor_arr[0]);
+    }
+    else
+    {
+        deleteNode(successor_arr[0]);
     }
 }
 
@@ -253,8 +347,8 @@ void BinaryTree<T>::bfs_iterative()
 {
     if (root != nullptr)
     {
-        std::queue<Node*> q;
-        Node* temp = root;
+        std::queue<Node<T> *> q;
+        Node<T> *temp = root;
         q.push(temp);
         while (!q.empty())
         {
@@ -279,8 +373,8 @@ void BinaryTree<T>::dfs_iterative()
 {
     if (root != nullptr)
     {
-        std::stack<Node*> s;
-        Node* temp = root;
+        std::stack<Node<T> *> s;
+        Node<T> *temp = root;
         s.push(temp);
         while (!s.empty())
         {
@@ -299,7 +393,29 @@ void BinaryTree<T>::dfs_iterative()
         std::cout << std::endl;
     }
 }
+template <class T>
+Node<T> **BinaryTree<T>::successor(Node<T> *node)
+{
+    Node<T> **arr = new Node<T> *[2];
+    arr[0] = node;
+    arr[1] = nullptr;
+    if (arr[0]->right == nullptr)
+    {
+        return nullptr;
+    }
+    else
+    {
+        arr[1] = arr[0];
+        arr[0] = arr[0]->right;
+    }
+    while (arr[0]->left != nullptr)
+    {
+        arr[1] = arr[0];
+        arr[0] = arr[0]->left;
+    }
 
+    return arr;
+}
 
 // template <class T>
 // void BinaryTree<T>::rearrange()
@@ -329,12 +445,11 @@ void BinaryTree<T>::dfs_iterative()
 
 //         int result[size1+size2+size3];
 
-
 //         std::copy(left,left+size1,result);
 //         std::copy(current,current+size2,result+size1);
 //         std::copy(right,right+size3,result+size1+size2);
 
 //         return result;
 //     }
-    
+
 // }
