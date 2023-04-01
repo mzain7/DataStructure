@@ -1,20 +1,20 @@
 
 #include <iostream>
 template <class T>
-class Generic_Stack
+class Stack
 {
 private:
     int size, top = 0;
     T *stack;
 
 public:
-    Generic_Stack(int size = 10)
+    Stack(int size = 10)
     {
         this->size = size;
         this->top = -1;
         this->stack = new T[size];
     }
-    ~Generic_Stack()
+    Stack()
     {
         delete stack;
     }

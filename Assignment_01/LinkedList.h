@@ -2,18 +2,16 @@
 
 template <typename T>
 struct Node
-    {
-        T data;
-       Node<T>*next = nullptr;
-    };
+{
+    T data;
+    Node<T> *next = nullptr;
+};
 template <typename T>
 class LinkedList
 {
 public:
-    
-
 private:
-   Node<T>*head;
+    Node<T> *head;
     int size;
 
 public:
@@ -26,7 +24,7 @@ public:
 
     void addAtStart(T value)
     {
-       Node<T>*newNode = new Node<T>;
+        Node<T> *newNode = new Node<T>;
         newNode->data = value;
         if (this->head == nullptr)
         {
@@ -42,7 +40,7 @@ public:
 
     void addAtEnd(T value)
     {
-       Node<T>*newNode = new Node<T>;
+        Node<T> *newNode = new Node<T>;
         newNode->data = value;
         if (this->head == nullptr)
         {
@@ -50,7 +48,7 @@ public:
         }
         else
         {
-           Node<T>*temp = head;
+            Node<T> *temp = head;
             while (temp->next != nullptr)
             {
                 temp = temp->next;
@@ -60,9 +58,9 @@ public:
         size++;
     }
 
-   Node<T>*search(T value)
+    Node<T> *search(T value)
     {
-       Node<T>*temp = head;
+        Node<T> *temp = head;
         while (temp != nullptr)
         {
             if (temp->data == value)
@@ -76,7 +74,7 @@ public:
 
     std::string display()
     {
-       Node<T>*temp = head;
+        Node<T> *temp = head;
         std::string listToString = "{";
         while (temp != nullptr)
         {
@@ -92,9 +90,9 @@ public:
 
     void insertion(T value, int index)
     {
-       Node<T>*newNode = new Node<T>;
+        Node<T> *newNode = new Node<T>;
         newNode->data = value;
-       Node<T>*temp = head;
+        Node<T> *temp = head;
         int counter = 1;
         while (counter != index)
         {
@@ -115,8 +113,8 @@ public:
 
     void deleteAtEnd()
     {
-       Node<T>*curr = head;
-       Node<T>*prev = nullptr;
+        Node<T> *curr = head;
+        Node<T> *prev = nullptr;
 
         while (curr->next != nullptr)
         {
@@ -138,8 +136,8 @@ public:
         else
         {
             int nodeCount = 1;
-           Node<T>*curr = head;
-           Node<T>*prev = nullptr;
+            Node<T> *curr = head;
+            Node<T> *prev = nullptr;
 
             while (nodeCount != index)
             {
@@ -155,7 +153,7 @@ public:
 
     void reverse()
     {
-       Node<T>*current = head, *previous = nullptr, *next = nullptr;
+        Node<T> *current = head, *previous = nullptr, *next = nullptr;
 
         while (current != nullptr)
         {
@@ -173,7 +171,8 @@ public:
         int sizee = 0;
         Node<T> *temp = head;
 
-        while(temp != nullptr){
+        while (temp != nullptr)
+        {
             sizee++;
             temp = temp->next;
         }
@@ -183,7 +182,7 @@ public:
 
     T read(int index)
     {
-       Node<T>*temp = head;
+        Node<T> *temp = head;
         for (int i = 2; i <= index && i <= size; i++)
         {
             temp = temp->next;
@@ -192,9 +191,9 @@ public:
         return temp->data;
     }
 
-   Node<T>*secondToLastNode()
+    Node<T> *secondToLastNode()
     {
-       Node<T>*curr = head;
+        Node<T> *curr = head;
 
         while ((curr->next)->next != nullptr)
         {
@@ -206,7 +205,7 @@ public:
 
     void rotate(int index)
     {
-       Node<T>*temp = head, *temp2 = nullptr;
+        Node<T> *temp = head, *temp2 = nullptr;
         int counter = 1;
         while (counter != index)
         {
@@ -226,26 +225,15 @@ public:
         head = temp2;
     }
 
-    Node<T>*  getHead(){
+    Node<T> *getHead()
+    {
         return head;
     }
 
-    void setHead(Node<T> *head){
+    void setHead(Node<T> *head)
+    {
         this->head = head;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
     // void sort()
     // {
