@@ -11,6 +11,7 @@ int main(int argc, char const *argv[])
     BST<int> tree;
 
     int option;
+    tree.insert(5);
     do
     {
         std::cout << "1 - Insert " << std::endl;
@@ -46,7 +47,7 @@ void operation(int option, BST<T> tree)
                 break;
             tree.insert(value);
         }
-        
+
         break;
     case 2:
         std::cout << "Enter a Value:";
