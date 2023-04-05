@@ -36,10 +36,10 @@ public:
 template <class T>
 void StackLL<T>::push(T value)
 {
-    Node<T> node = new Node<T>;
-    node.data = value;
+    Node<T> *node = new Node<T>;
+    node->data = value;
 
-    node.next = head;
+    node->next = head;
     head = node;
 
 }
@@ -47,16 +47,37 @@ void StackLL<T>::push(T value)
 template <class T>
 std::string StackLL<T>::display()
 {
-    
+    std::string output = "";
+    Node<T> *temp = head;
+    while(temp != nullptr){
+        output += std::to_string(temp->data) + ", ";
+        temp = temp->next;
+    }
+
+    return output;
 }
 
 template <class T>
 T StackLL<T>::peek()
 {
+    if(isEmpty()){
+        std::cout<< "Empty!";
+        return NULL;
+    }
+    return head->data;
 }
 template <class T>
 T StackLL<T>::pop()
 {
+    if(isEmpty()){
+        std::cout<< "Empty!";
+        return 0;
+    }
+    Node<T> *temp = head;
+    T value = temp->data;
+    head = head->next;
+    delete temp;
+    return value;
 }
 
 template <class T>
