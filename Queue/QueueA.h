@@ -9,7 +9,7 @@ private:
     T *queuePtr;
 
 public:
-    QueueA(int size)
+    QueueA(int size =10)
     {
         this->size = size;
         front = -1;
@@ -17,7 +17,7 @@ public:
         queuePtr = (T *)calloc(size, sizeof(T));
     }
 
-    bool enqueue(int T)
+    bool enqueue(int val)
     {
         if (isFull())
         {
@@ -27,13 +27,8 @@ public:
         else if (isEmpty())
         {
             front = 0;
-            back = 0;
         }
-        else
-        {
-            back++;
-        }
-        *(queuePtr + back) = val;
+        queuePtr[++back] = val;
         return true;
     }
 
@@ -47,8 +42,8 @@ public:
         }
         else
         {
-            val = *(queuePtr + front);
-            *(queuePtr + front) = 0;
+            val = queuePtr[front];
+            queuePtr[front] = 0;
         }
 
         if (front == back)
@@ -80,16 +75,19 @@ public:
 
     void display()
     {
+        if(front == -1){
+            return;
+        }
         int temp = front;
         std::cout << std::endl;
         while (true)
         {
-            std::cout << *(queuePtr + temp) << " ";
+            std::cout << queuePtr[temp] << " ";
             if (temp == back)
             {
                 break;
             }
-            temp = (temp + 1) % size;
+            temp ++;
         }
     }
 };
