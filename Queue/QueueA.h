@@ -80,13 +80,13 @@ public:
         }
         int temp = front;
         std::cout << std::endl;
-        while (true)
+        while (temp != back +1)
         {
             std::cout << queuePtr[temp] << " ";
-            if (temp == back)
-            {
-                break;
-            }
+            // if (temp == back)
+            // {
+            //     break;
+            // }
             temp ++;
         }
     }
