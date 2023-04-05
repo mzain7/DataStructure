@@ -3,6 +3,7 @@
 #include <string>
 // using namespace std;
 
+bool validation(std::string str);
 bool isOperator(char chr);
 int precedence(char chr);
 std::string postfix(std::string str);
@@ -11,14 +12,46 @@ int calculate(int op1, int op2, char c);
 
 int main(int argc, char const *argv[])
 {
-    std::string str = "(((1+2)*3)+6)/(2+3)";
-    std::string PSN  = postfix(str);
-    std::cout << PSN;
+    std::string str = "(((1+2)*3)+6)/[2+3]}}}}";
+    std::cout << validation(str);
+    // std::string PSN = postfix(str);
+    // std::cout << PSN;
 
-    std::cout <<std::endl<< postfixEvaluation(PSN);
+    // std::cout << std::endl
+    //           << postfixEvaluation(PSN);
 
     return 0;
 }
+
+bool validation(std::string str)
+{
+    Stack<char> stack;
+    for (int i = 0; i < str.length(); i++)
+    {
+        char character = str[i];
+        if (character == '(' || character == '[' || character == '{')
+        {
+            stack.push(character);
+        }
+        else if (character == ')')
+        {
+            if (stack.isEmpty() || stack.pop() != '(')
+                return false;
+        }
+        else if (character == ']')
+        {
+            if (stack.isEmpty() || stack.pop() != '[')
+                return false;
+        }
+        else if (character == '}')
+        {
+            if (stack.isEmpty() || stack.pop() != '{')
+                return false;
+        }
+    }
+    return stack.isEmpty();
+}
+
 std::string postfix(std::string str)
 {
     Stack<char> operators(30);
@@ -91,43 +124,41 @@ int precedence(char chr)
 
 int postfixEvaluation(std::string infix)
 {
-Stack<int> stack;
-for (int i = 0; i < infix.length(); i++)
-{
-    char character = infix[i];
-
-    if (isdigit(character))
+    Stack<int> stack;
+    for (int i = 0; i < infix.length(); i++)
     {
-        stack.push(character - '0');
+        char character = infix[i];
+
+        if (isdigit(character))
+        {
+            stack.push(character - '0');
+        }
+        else if (isOperator(character))
+        {
+            int op1 = stack.pop();
+            int op2 = stack.pop();
+
+            stack.push(calculate(op1, op2, character));
+        }
     }
-    else if (isOperator(character))
-    {
-        int op1 = stack.pop();
-        int op2 = stack.pop();
 
-        stack.push(calculate(op1,op2,character));
-
-    }
-}
-
-return stack.pop();
-
+    return stack.pop();
 }
 
 int calculate(int op1, int op2, char c)
+{
+    switch (c)
     {
-        switch (c)
-        {
-        case '+':
-            return op1 + op2;
-        case '-':
-            return op1 - op2;
-        case '*':
-            return op1 * op2;
-        case '/':
-            return op2 / op1;
-        default:
-            return 0;
-        }
+    case '+':
+        return op1 + op2;
+    case '-':
+        return op1 - op2;
+    case '*':
+        return op1 * op2;
+    case '/':
+        return op2 / op1;
+    default:
         return 0;
     }
+    return 0;
+}
