@@ -23,7 +23,8 @@ public:
     {
         if (isFull())
         {
-            throw runtime_error("Stack is Full  😤");
+            std::cout << "Full!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+            return false;
         }
         else
         {
@@ -36,7 +37,8 @@ public:
     {
         if (isEmpty())
         {
-            throw runtime_error("Stack is Empty!  😤")
+            std::cout << "Empty!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+            return 0;
         }
         else
         {
@@ -48,7 +50,8 @@ public:
     {
         if (isEmpty())
         {
-            throw runtime_error("Stack is Empty!  😤")
+            std::cout << "Empty!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+            return 0;
         }
         else
         {
@@ -63,22 +66,19 @@ public:
         while (temp != -1)
         {
             toString += stack[temp] + " ,";
-
         }
 
         toString += "}";
         return toString;
-        
     }
 
     bool isFull()
     {
-        return top + 1 = size;
+        return top + 1 == size;
     }
 
     bool isEmpty()
     {
-        return top = -1;
+        return top == -1;
     }
 };
-
