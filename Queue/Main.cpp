@@ -1,26 +1,28 @@
 #include <iostream>
-#include "QueueA.h"
+// #include "QueueA.h"
+#include "PriorityQueueA.h"
 int main(int argc, char const *argv[])
 {
-    QueueA<int> queue(20);
+    // QueueA<int> queue(20);
+    PriorityQueueA<int> queue(20);
 
-    queue.enqueue(30);
-    queue.enqueue(30);
-    queue.enqueue(30);
-    queue.enqueue(30);
-    queue.enqueue(30);
-    queue.enqueue(30);
-    queue.enqueue(30);
-    queue.display();
+    queue.enqueue(1,1);
+    queue.enqueue(3,3);
+    queue.enqueue(0,0);
 
-    queue.dequeue();
-    queue.dequeue();
-    queue.dequeue();
-    queue.dequeue();
+    std::cout<<queue.display()<<std::endl;
+
     queue.dequeue();
     queue.dequeue();
     // queue.dequeue();
+    // queue.dequeue();
+    // queue.dequeue();
+    // queue.dequeue();
+    // queue.dequeue();
+    // queue.dequeue();
+    // queue.dequeue();
+    // queue.dequeue();
 
-    queue.display();
+    std::cout<<queue.display();
     return 0;
 }
