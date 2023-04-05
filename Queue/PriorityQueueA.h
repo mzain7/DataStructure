@@ -36,6 +36,9 @@ public:
 template <class T>
 void PriorityQueueA<T>::enqueue(T value, int priority)
 {
+    Node<T> *node = new Node<T>;
+    node->data = value;
+    node->priority = priority;
     if (isFull())
     {
         std::cout << "queue is full";
@@ -44,13 +47,28 @@ void PriorityQueueA<T>::enqueue(T value, int priority)
     else if (isEmpty())
     {
         front = 0;
+        back = 0;
+        queue[back] = node;
     }
+    else
+    {
 
-    Node<T> *node = new Node<T>;
-    node->data = value;
-    node->priority = priority;
+        // queue[++back] = node;
 
-    queue[++back] = node;
+        for (int i = back + 1; i > 0; i--)
+        {
+            if (node->priority > queue[i - 1]->priority)
+            {
+                queue[i] = queue[i - 1];
+            }
+            else
+            {
+                queue[i] = node;
+            }
+        }
+
+        back++;
+    }
 }
 
 template <class T>
