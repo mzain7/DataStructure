@@ -14,7 +14,7 @@ public:
         this->top = -1;
         this->stack = new T[size];
     }
-    Stack()
+    ~Stack()
     {
         delete stack;
     }
