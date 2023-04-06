@@ -1,7 +1,6 @@
 
 #include <iostream>
 #include <ctime>
-// #include <queue>
 #include "QueueLL.h"
 struct Transaction
 {
@@ -28,6 +27,7 @@ int main(int argc, char const *argv[])
         std::cin>>trans.count;
         std::cout<<"Enter price $: ";
         std::cin>>trans.price;
+        trans.time = time(0);
 
         if(option == 1){
             bought.enqueue(trans);
@@ -39,7 +39,7 @@ int main(int argc, char const *argv[])
 
     gain = gainCalculate(bought, sold);
 
-    std::cout <<"Total Gain is "<< gain;
+    std::cout <<"\n\nTotal Gain is "<< gain;
 
     return 0;
 }
