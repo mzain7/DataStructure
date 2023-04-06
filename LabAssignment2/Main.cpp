@@ -18,44 +18,28 @@ int main(int argc, char const *argv[])
 
     int gain = 0, option = 0;
     Transaction trans;
-    // while (option != -1)
-    // {
-    //     std::cout << "\n 1 - Buy\n 2 - Sell\n-1 - Exit\nEnter you choice: ";
-    //     std::cin >> option;
-    //     if(option == -1)break;
+    while (option != -1)
+    {
+        std::cout << "\n 1 - Buy\n 2 - Sell\n-1 - Exit\nEnter you choice: ";
+        std::cin >> option;
+        if(option == -1)break;
 
-    //     std::cout<<"Enter quantity: ";
-    //     std::cin>>trans.count;
-    //     std::cout<<"Enter price $: ";
-    //     std::cin>>trans.price;
+        std::cout<<"Enter quantity: ";
+        std::cin>>trans.count;
+        std::cout<<"Enter price $: ";
+        std::cin>>trans.price;
 
-    //     if(option == 1){
-    //         bought.enqueue(trans);
-    //     }else if(option == 2){
-    //         sold.enqueue(trans);
-    //     }
-    // }
-
-    trans.count = 100;
-    trans.price = 25;
-bought.enqueue(trans);
-    trans.count = 200;
-    trans.price = 20;
-bought.enqueue(trans);
-
-
-    trans.count = 60;
-    trans.price = 30;
-sold.enqueue(trans);
-
-    trans.count = 240;
-    trans.price = 50;
-sold.enqueue(trans);
+        if(option == 1){
+            bought.enqueue(trans);
+        }else if(option == 2){
+            sold.enqueue(trans);
+        }
+    }
 
 
     gain = gainCalculate(bought, sold);
 
-    std::cout << gain;
+    std::cout <<"Total Gain is "<< gain;
 
     return 0;
 }
