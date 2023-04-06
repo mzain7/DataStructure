@@ -1,3 +1,6 @@
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-type"
+
 #include <iostream>
 template <typename T>
 struct Node
@@ -18,7 +21,7 @@ public:
     ~Queue();
     void enqueue(T value);
     T dequeue();
-    T front();
+    T* front();
     bool isEmpty();
 };
 
@@ -46,6 +49,7 @@ void Queue<T>::enqueue(T value)
     else
     {
         node->next = head;
+        head->prev = node;
         head = node;
     }
 }
@@ -55,7 +59,7 @@ T Queue<T>::dequeue()
 {
     if (tail == nullptr)
     {
-        return NULL;
+        std::cout<< "Empty";
     }
     else
     {
@@ -80,15 +84,16 @@ T Queue<T>::dequeue()
 }
 
 template <class T>
-T Queue<T>::front()
+T* Queue<T>::front()
 {
     if (tail == nullptr)
     {
-        return NULL;
+        std::cout<< "Empty";
+        return nullptr;
     }
     else
     {
-        return tail->data;
+        return &tail->data;
     }
 }
 
@@ -97,3 +102,5 @@ bool Queue<T>::isEmpty()
 {
     return head == nullptr;
 }
+
+#pragma GCC diagnostic pop
