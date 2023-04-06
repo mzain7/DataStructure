@@ -11,14 +11,14 @@ template <typename T>
 class PriorityQueueA
 {
 private:
-    Node<T> **queue;
+    Node<T> *queue;
     int front = -1, back = -1, size = 0;
 
 public:
     PriorityQueueA(int size)
     {
         this->size = size;
-        this->queue = new Node<T> *[size];
+        this->queue = new Node<T> [size];
     }
     ~PriorityQueueA()
     {
@@ -36,9 +36,9 @@ public:
 template <class T>
 void PriorityQueueA<T>::enqueue(T value, int priority)
 {
-    Node<T> *node = new Node<T>;
-    node->data = value;
-    node->priority = priority;
+    Node<T> node ;
+    node.data = value;
+    node.priority = priority;
     if (isFull())
     {
         std::cout << "queue is full";
@@ -57,7 +57,7 @@ void PriorityQueueA<T>::enqueue(T value, int priority)
 
         for (int i = back + 1; i > 0; i--)
         {
-            if (node->priority > queue[i - 1]->priority)
+            if (node.priority > queue[i - 1].priority)
             {
                 queue[i] = queue[i - 1];
             }
@@ -83,7 +83,7 @@ T PriorityQueueA<T>::dequeue()
     else
     {
         int index = indexOfMin();
-        val = queue[index]->data;
+        val = queue[index].data;
         for (int i = index; i < back; i++)
         {
             queue[i] = queue[i + 1];
@@ -109,7 +109,7 @@ int PriorityQueueA<T>::indexOfMin()
     int index = 0;
     for (int i = 0; i != back + 1; i++)
     {
-        if (queue[i]->priority < queue[index]->priority)
+        if (queue[i].priority < queue[index].priority)
         {
             index = i;
         }
@@ -127,7 +127,7 @@ std::string PriorityQueueA<T>::display()
     int temp = front;
     while (temp != back + 1)
     {
-        output += std::to_string(queue[temp++]->data) + " ";
+        output += std::to_string(queue[temp++].data) + " ";
     }
 
     return output;
