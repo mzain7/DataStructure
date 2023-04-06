@@ -1,19 +1,18 @@
 #include <iostream>
 // #include "QueueA.h"
-#include "PriorityQueueA.h"
+// #include "PriorityQueueA.h"
+#include "QueueL.h"
 int main(int argc, char const *argv[])
 {
     // QueueA<int> queue(20);
-    PriorityQueueA<int> queue(20);
+    Queue<int> queue;
 
-    queue.enqueue(3,3);
-    queue.enqueue(1,1);
-    queue.enqueue(2,2);
+    queue.enqueue(3);
+    queue.enqueue(1);
+    queue.enqueue(2);
 
-    std::cout<<queue.display()<<std::endl;
+    queue.display();
 
-    queue.dequeue();
-    queue.dequeue();
     // queue.dequeue();
     // queue.dequeue();
     // queue.dequeue();
@@ -22,7 +21,9 @@ int main(int argc, char const *argv[])
     // queue.dequeue();
     // queue.dequeue();
     // queue.dequeue();
-
-    std::cout<<queue.display();
+    // queue.dequeue();
+    // queue.dequeue();
+    queue.reverse();
+    queue.display();
     return 0;
 }
