@@ -21,25 +21,15 @@ public:
     ~BST();
     void insert(T value);
     std::string inorder(Node<T> *node);
-    std::string preorder(Node<T> *node);
-    std::string postorder(Node<T> *node);
     Node<T> *search(T value);
-    Node<T> *left(Node<T> *node);
-    Node<T> *right(Node<T> *node);
-    bool hasLeft(Node<T> *node);
-    bool hasRight(Node<T> *node);
     Node<T> *parent(Node<T> *node, Node<T> *root);
-    Node<T> *sibling(Node<T> *node);
-    Node<T> *deletion(Node<T> *node, T value);
-    Node<T> *getChild(Node<T> *node);
-    Node<T> *successor(Node<T> *node);
-    void copyNode(Node<T> *node, Node<T> *successor);
     int depth(Node<T> *node, Node<T> *root);
     bool isSameLevel(Node<T> *node1, Node<T> *node2, Node<T> *root);
     int totalNodes(Node<T> *node);
     int height(Node<T> *node);
     bool isBST(Node<T> *root);
     void levelOrderInsertion(Node<T> *root, T data);
+    void deletion(Node<T> *node);
 };
 template <typename T>
 BST<T>::BST(/* args */)
@@ -103,30 +93,6 @@ std::string BST<T>::inorder(Node<T> *node)
         return inorder(node->left) + " " + std::to_string(node->data) + " " + inorder(node->right);
     }
 }
-template <class T>
-std::string BST<T>::preorder(Node<T> *node)
-{
-    if (node == nullptr)
-    {
-        return "";
-    }
-    else
-    {
-        return std::to_string(node->data) + " " + preorder(node->left) + " " + preorder(node->right);
-    }
-}
-template <class T>
-std::string BST<T>::postorder(Node<T> *node)
-{
-    if (node == nullptr)
-    {
-        return "";
-    }
-    else
-    {
-        return postorder(node->left) + " " + postorder(node->right) + " " + std::to_string(node->data);
-    }
-}
 
 template <class T>
 Node<T> *BST<T>::search(T value)
@@ -152,28 +118,6 @@ Node<T> *BST<T>::search(T value)
 }
 
 template <class T>
-Node<T> *BST<T>::left(Node<T> *node)
-{
-    return node->left;
-}
-template <class T>
-Node<T> *BST<T>::right(Node<T> *node)
-{
-    return node->right;
-}
-
-template <class T>
-bool BST<T>::hasLeft(Node<T> *node)
-{
-    return node->left != nullptr;
-}
-template <class T>
-bool BST<T>::hasRight(Node<T> *node)
-{
-    return node->right != nullptr;
-}
-
-template <class T>
 Node<T> *BST<T>::parent(Node<T> *node, Node<T> *root)
 {
     if (node == root)
@@ -192,83 +136,6 @@ Node<T> *BST<T>::parent(Node<T> *node, Node<T> *root)
     {
         return parent(node, root->left);
     }
-}
-
-template <class T>
-Node<T> *BST<T>::sibling(Node<T> *node)
-
-{
-    Node<T> *parentNode = parent(node, root);
-    if (parentNode->left == node)
-    {
-        return parentNode->right;
-    }
-    else
-    {
-        return parentNode->left;
-    }
-}
-
-template <class T>
-Node<T> *BST<T>::deletion(Node<T> *node, T value)
-{
-    if (node != nullptr)
-    {
-        if (node->data == value)
-        {
-            if (hasLeft(node) && hasRight(node))
-            {
-                Node<T> *successorNode = successor(node);
-                copyNode(node, successorNode);
-                node->right = deletion(node->right, successorNode->data);
-            }
-            else
-            {
-                node = getChild(node);
-            }
-        }
-        else if (value > node->data)
-        {
-            node->right = deletion(node->right, value);
-        }
-        else
-        {
-            node->left = deletion(node->left, value);
-        }
-
-        return node;
-    }
-    return node;
-}
-
-template <class T>
-Node<T> *BST<T>::getChild(Node<T> *node)
-{
-    if (node->left != nullptr)
-    {
-        return node->left;
-    }
-    else
-    {
-        return node->right;
-    }
-}
-
-template <class T>
-Node<T> *BST<T>::successor(Node<T> *node)
-{
-    node = node->right;
-    while (node->left != nullptr)
-    {
-        node = node->left;
-    }
-
-    return node;
-}
-template <class T>
-void BST<T>::copyNode(Node<T> *node, Node<T> *successor)
-{
-    node->data = successor->data;
 }
 
 template <class T>
@@ -397,4 +264,63 @@ void BST<T>::levelOrderInsertion(Node<T> *root, T data)
             return;
         }
     }
+}
+
+template <class T>
+void BST<T>::deletion(Node<T> *node)
+{
+    Node<T> *prev = nullptr;
+    while (node->right != nullptr)
+    {
+        node->data = node->right->data;
+        prev = node;
+        node = node->right;
+    }
+    if (node->left == nullptr)
+    {
+        prev->right = nullptr;
+    }
+    else
+    {
+        prev->right = node->left;
+    }
+    delete node;
+}
+
+int main(int argc, char const *argv[])
+{
+    BST<int> tree;
+    tree.insert(50);
+    tree.insert(25);
+    tree.insert(75);
+    tree.insert(12);
+    tree.insert(35);
+    tree.insert(55);
+    tree.insert(90);
+    tree.insert(9);
+    tree.insert(20);
+    tree.insert(30);
+    tree.insert(40);
+    tree.insert(44);
+
+    std::cout << "\n\nInorder Display: " << tree.inorder(tree.root);
+
+    std::cout << "\n\nParent of 12 is " << tree.parent(tree.search(12), tree.root)->data;
+
+    std::cout << "\n\nDepth of 25 is " << tree.depth(tree.search(25), tree.root);
+
+    std::cout << "\n\nIs 9 and 35 at same level : " << tree.isSameLevel(tree.search(9), tree.search(35), tree.root);
+
+    std::cout << "\n\nTotal Nodes are " << tree.totalNodes(tree.root);
+
+    std::cout << "\n\nHeight of tree is " << tree.height(tree.root);
+
+    std::cout << "\n\nIs tree a BST? " << tree.isBST(tree.root);
+
+    tree.deletion(tree.search(25));
+
+    std::cout << "\n\nInorder Display: " << tree.inorder(tree.root);
+
+    std::cout << "\n\nIs tree a BST? " << tree.isBST(tree.root);
+    return 0;
 }
