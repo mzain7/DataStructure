@@ -77,7 +77,7 @@ public:
 };
 int main(int argc, char const *argv[])
 {
-    Stack operators;
+    Stack<char> operators(30);
     std::string PSN = "";
 
     std::string str = "(((1+2)*3)+6)/(2+3)";
