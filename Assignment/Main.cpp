@@ -34,7 +34,7 @@ int main(int argc, char const *argv[])
     // std::cout << std::endl << tree.height(tree.root);
     std::cout << std::endl << tree.isBST(tree.root);
 
-
+    std::string
 
     // int option;
     // tree.insert(5);
