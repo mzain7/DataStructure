@@ -127,7 +127,6 @@ int AVL_Tree::height(AVL_Tree::Node *node)
 
 void AVL_Tree::print(AVL_Tree::Node *node)
 {
-
     std::queue<Node *> q, queue;
     q.push(root);
     int count = 0, counter = 0;
