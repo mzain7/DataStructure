@@ -22,19 +22,20 @@ int main(int argc, char const *argv[])
     tree.insert(40);
     tree.insert(44);
 
-    tree.levelOrderInsertion(tree.root,32);
-    tree.levelOrderInsertion(tree.root,5);
-    tree.levelOrderInsertion(tree.root,5);
 
-    std::cout<<tree.inorder(tree.root);
-    std::cout <<std::endl<< tree.parent(tree.search(12),tree.root)->data;
-    std::cout<<std::endl<< tree.depth(tree.search(25),tree.root);
-    std::cout << std::endl<< tree.isSameLevel(tree.search(9),  tree.search(35), tree.root);
-    std::cout << std::endl << tree.totalNodes(tree.root);
-    // std::cout << std::endl << tree.height(tree.root);
-    std::cout << std::endl << tree.isBST(tree.root);
+    
 
-    std::string
+    // tree.levelOrderInsertion(tree.root,32);
+    // tree.levelOrderInsertion(tree.root,5);
+    // tree.levelOrderInsertion(tree.root,5);
+
+    // std::cout<<tree.inorder(tree.root);
+    // std::cout <<std::endl<< tree.parent(tree.search(12),tree.root)->data;
+    // std::cout<<std::endl<< tree.depth(tree.search(25),tree.root);
+    // std::cout << std::endl<< tree.isSameLevel(tree.search(9),  tree.search(35), tree.root);
+    // std::cout << std::endl << tree.totalNodes(tree.root);
+    // // std::cout << std::endl << tree.height(tree.root);
+    // std::cout << std::endl << tree.isBST(tree.root);
 
     // int option;
     // tree.insert(5);

@@ -40,6 +40,7 @@ public:
     int height(Node<T> *node);
     bool isBST(Node<T> *root);
     void levelOrderInsertion(Node<T> *root, T data);
+    int isAVL(Node<T> *node);
 };
 template <typename T>
 BST<T>::BST(/* args */)
@@ -365,29 +366,29 @@ bool BST<T>::isBST(Node<T> *root)
 
     return true;
 }
-int isBST(struct node* node)
-{
-    if (node == NULL)
-        return 1;
- 
-    /* false if the max of the left is > than us */
-    if (node->left != NULL
-        && maxValue(node->left) > node->data)
-        return 0;
- 
-    /* false if the min of the right is <= than us */
-    if (node->right != NULL
-        && minValue(node->right) < node->data)
-        return 0;
- 
-    /* false if, recursively, the left or right is not a BST
-     */
-    if (!isBST(node->left) || !isBST(node->right))
-        return 0;
- 
-    /* passing all that, it's a BST */
-    return 1;
-}
+// int isBST(struct node* node)
+// {
+//     if (node == NULL)
+//         return 1;
+
+//     /* false if the max of the left is > than us */
+//     if (node->left != NULL
+//         && maxValue(node->left) > node->data)
+//         return 0;
+
+//     /* false if the min of the right is <= than us */
+//     if (node->right != NULL
+//         && minValue(node->right) < node->data)
+//         return 0;
+
+//     /* false if, recursively, the left or right is not a BST
+//      */
+//     if (!isBST(node->left) || !isBST(node->right))
+//         return 0;
+
+//     /* passing all that, it's a BST */
+//     return 1;
+// }
 template <class T>
 void BST<T>::levelOrderInsertion(Node<T> *root, T data)
 {
@@ -417,6 +418,26 @@ void BST<T>::levelOrderInsertion(Node<T> *root, T data)
         {
             temp->right = node;
             return;
+        }
+    }
+}
+
+template <class T>
+int BST<T>::isAVL(Node<T> *node){
+    if(node == nullptr){
+        return 0;
+    }
+    else{
+        int left = isAVL(node->left);
+        int right = isAVL(node->right);
+        if(left == -1 || right == -1){
+            return -1;
+        }
+        else if(abs(left - right) > 1){
+            return -1;
+        }
+        else{
+            return std::max(left, right) + 1;
         }
     }
 }

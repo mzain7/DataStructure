@@ -29,3 +29,37 @@ public:
     Node *sibling(Node *node);
 
 };
+
+template<class T> <error-type> *HeapTree<T>::insert(T data)
+{
+    Node *node = new Node(data);
+    if (root == nullptr)
+    {
+        root = node;
+        last = node;
+    }
+    else
+    {
+        Node *temp = last;
+        while (temp != nullptr)
+        {
+            if (temp->left == nullptr)
+            {
+                temp->left = node;
+                break;
+            }
+            else if (temp->right == nullptr)
+            {
+                temp->right = node;
+                break;
+            }
+            else
+            {
+                temp = temp->left;
+            }
+        }
+        last = node;
+    }
+    heapifyUp(node);
+    return node;
+}
