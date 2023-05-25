@@ -1,65 +1,74 @@
 #include <iostream>
 
-template <typename T>
 class HeapTree
 {
 private:
     class Node
     {
     public:
-        T data;
-        Node *left, *right;
-        Node(T data) : data(data), left(nullptr), right(nullptr) {}
+        int key = 0;
+        Node *left = nullptr, *right = nullptr;
+        Node(int data) { this->key = data; }
+        ~Node() {}
+    };
 
-    }
-
-    Node *root = nullptr;
-    Node *last = nullptr;
-
-    void heapifyUp(Node *node);
-    void heapifyDown(Node *node);
+    Node *root = nullptr, *lastNode = nullptr;
 
 public:
     HeapTree() {}
     ~HeapTree() {}
-
-    Node *insert(T data); 
-    Node *remove();
-
-    Node *sibling(Node *node);
-
+    Node *insert(int value);
+    Node *getParent(Node *root, Node *node);
+    bool isLeft(Node *parent, Node *node);
+    bool isRight(Node *parent, Node *node);
 };
 
-template<class T> <error-type> *HeapTree<T>::insert(T data)
+HeapTree::Node *HeapTree::insert(int value)
 {
-    Node *node = new Node(data);
-    if (root == nullptr)
+    Node *parent = getParent(this->root, lastNode);
+    if (isLeft(parent, lastNode))
     {
-        root = node;
-        last = node;
+        parent->right = new Node(value);
     }
     else
     {
-        Node *temp = last;
-        while (temp != nullptr)
-        {
-            if (temp->left == nullptr)
-            {
-                temp->left = node;
-                break;
-            }
-            else if (temp->right == nullptr)
-            {
-                temp->right = node;
-                break;
-            }
-            else
-            {
-                temp = temp->left;
-            }
-        }
-        last = node;
+        
     }
-    heapifyUp(node);
-    return node;
+}
+
+HeapTree::Node *HeapTree::getParent(HeapTree::Node *root, HeapTree::Node *node)
+{
+    if (root == nullptr)
+    {
+        return nullptr;
+    }
+    else if (root->left == node || root->right == node)
+    {
+        return root;
+    }
+    Node *left = getParent(root->left, node);
+    Node *right = getParent(root->right, node);
+
+    if (left == nullptr && right == nullptr)
+    {
+        return nullptr;
+    }
+    else if (left == nullptr)
+    {
+        return right;
+    }
+    else
+    {
+        return left;
+    }
+}
+
+bool HeapTree::isLeft(HeapTree::Node *parent, HeapTree::Node *node)
+{
+    return parent->left == node;
+}
+
+bool HeapTree::isRight(HeapTree::Node *parent, HeapTree::Node *node)
+{
+    return parent->right == node;
 }

@@ -4,22 +4,22 @@
 int main(int argc, char const *argv[])
 {
     AVL_Tree tree;
-    // tree.insert(55);
-    // tree.insert(33);
-    // tree.insert(66);
-    // tree.insert(20);
-    // tree.insert(44);
-    // tree.insert(60);
-    // tree.insert(80);
-    // tree.insert(15);
-    // tree.insert(40);
-    // tree.insert(50);
-    // tree.insert(88);
-    // tree.insert(38);
-    // tree.insert(42);
-    // tree.insert(52);
-    // tree.insert(35);
-    // tree.insert(5);
+    tree.insert(55);
+    tree.insert(33);
+    tree.insert(66);
+    tree.insert(20);
+    tree.insert(44);
+    tree.insert(60);
+    tree.insert(80);
+    tree.insert(15);
+    tree.insert(40);
+    tree.insert(50);
+    tree.insert(88);
+    tree.insert(38);
+    tree.insert(42);
+    tree.insert(52);
+    tree.insert(35);
+    tree.insert(5);
 
     tree.insert(13);
     tree.insert(10);
@@ -31,8 +31,11 @@ int main(int argc, char const *argv[])
     tree.insert(8);
     tree.insert(3);
 
+    std::cout << tree.preorder(tree.root);
 
-    std::cout<<tree.preorder(tree.root);
+    std::cout << std::endl
+              << tree.contain(55) << std::endl;
+
     tree.print(tree.root);
     return 0;
 }

@@ -14,6 +14,7 @@ private:
     };
 
 public:
+    AVL_Tree(int a[]);
     Node *root = nullptr;
     void insert(int data);
     Node *grow(Node *node, int key);
@@ -24,6 +25,7 @@ public:
     void rotateRight(Node *node);
     std::string preorder(Node *node);
     void print(Node *node);
+    bool contain(int data);
 };
 std::string AVL_Tree::preorder(Node *node)
 {
@@ -151,5 +153,37 @@ void AVL_Tree::print(AVL_Tree::Node *node)
             std::cout << std::endl;
             counter++;
         }
+    }
+}
+
+bool AVL_Tree::contain(int value)
+{
+    Node *node = root;
+    while (node != nullptr)
+    {
+        if (node->key == value)
+        {
+            break;
+        }
+        else if (value > node->key)
+        {
+            node = node->right;
+        }
+        else if (value < node->key)
+        {
+            node = node->left;
+        }
+    }
+
+    return node;
+}
+
+
+AVL_Tree::AVL_Tree(int *a)
+{
+    int size = sizeof(a) / sizeof(a[0]);
+    for (int i = 0; i < size; i++)
+    {
+        this->insert(a[i]);
     }
 }
