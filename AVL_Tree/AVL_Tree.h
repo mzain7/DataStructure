@@ -14,7 +14,7 @@ private:
     };
 
 public:
-    AVL_Tree(int a[]);
+    AVL_Tree(int a[], int size);
     Node *root = nullptr;
     void insert(int data);
     Node *grow(Node *node, int key);
@@ -179,9 +179,10 @@ bool AVL_Tree::contain(int value)
 }
 
 
-AVL_Tree::AVL_Tree(int *a)
+AVL_Tree::AVL_Tree(int *a, int size)
 {
-    int size = sizeof(a) / sizeof(a[0]);
+
+
     for (int i = 0; i < size; i++)
     {
         this->insert(a[i]);

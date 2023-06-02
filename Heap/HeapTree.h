@@ -229,6 +229,7 @@ bool HeapTree::isRight(HeapTree::Node *parent, HeapTree::Node *node)
 
 void HeapTree::print(Node *node)
 {
+    std::cout<<std::endl;
     std::queue<Node *> q, queue;
     q.push(root);
     int count = 0, counter = 0;

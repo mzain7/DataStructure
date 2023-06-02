@@ -40,27 +40,26 @@ void Heap<T>::heapifyUp(int index)
     }
 }
 
-template <class T>
-void Heap<T>::heapifydown(int index)
+template<class T> void Heap<T>::heapifydown(int index)
 {
-    int leftChildIndex = 2 * index + 1;
-    int rightChildIndex = 2 * index + 2;
+    int left = 2 * index + 1;
+    int right = 2 * index + 2;
+    int largest = index;
 
-    if (leftChildIndex >= this->size)
-        return;
-
-    int maxIndex = index;
-
-    if (this->heap[maxIndex] < this->heap[leftChildIndex])
-        maxIndex = leftChildIndex;
-
-    if (rightChildIndex < this->size && this->heap[maxIndex] < this->heap[rightChildIndex])
-        maxIndex = rightChildIndex;
-
-    if (maxIndex != index)
+    if (left < size && this->heap[left] > this->heap[largest])
     {
-        std::swap(this->heap[maxIndex], this->heap[index]);
-        heapifydown(maxIndex);
+        largest = left;
+    }
+
+    if (right < size && this->heap[right] > this->heap[largest])
+    {
+        largest = right;
+    }
+
+    if (largest != index)
+    {
+        std::swap(this->heap[index], this->heap[largest]);
+        heapifydown(largest);
     }
 }
 
