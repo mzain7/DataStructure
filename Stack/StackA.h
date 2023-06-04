@@ -66,11 +66,13 @@ public:
         while (temp != -1)
         {
             toString += stack[temp] + " ,";
+            temp--;
         }
 
         toString += "}";
         return toString;
     }
+
 
     bool isFull()
     {

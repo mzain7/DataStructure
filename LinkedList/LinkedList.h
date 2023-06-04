@@ -235,6 +235,112 @@ public:
         this->head = head;
     }
 
+    int productOfAllNodes()
+    {
+        Node<T> *temp = head;
+        int product = 1;
+        while (temp != nullptr)
+        {
+            product *= temp->data;
+            temp = temp->next;
+        }
+        return product;
+    }
+
+    void sort()
+    {
+        Node<T> *temp = head, *temp2 = head;
+        while (temp2->next != nullptr)
+        {
+            while (temp->next != nullptr)
+            {
+                if (temp->data > (temp->next)->data)
+                {
+                    swap(temp, temp->next);
+                }
+                temp = temp->next;
+            }
+            temp = head;
+            temp2 = temp2->next;
+        }
+    }
+
+    int max()
+    {
+        Node<T> *temp = head;
+        int max = temp->data;
+        while (temp != nullptr)
+        {
+            if (temp->data > max)
+            {
+                max = temp->data;
+            }
+            temp = temp->next;
+        }
+        return max;
+    }
+    int min()
+    {
+        Node<T> *temp = head;
+        int min = temp->data;
+        while (temp != nullptr)
+        {
+            if (temp->data < min)
+            {
+                min = temp->data;
+            }
+            temp = temp->next;
+        }
+        return min;
+    }
+
+    void insertBefore(int data, int key)
+    {
+        Node<T> *newNode = new Node<T>;
+        newNode->data = data;
+        Node<T> *temp = head;
+        Node<T> *prev = nullptr;
+        while (temp->data != key)
+        {
+            prev = temp;
+            temp = temp->next;
+        }
+        prev->next = newNode;
+        newNode->next = temp;
+        size++;
+    }
+
+    void insertAfter(int data, int key)
+    {
+        Node<T> *newNode = new Node<T>;
+        newNode->data = data;
+        Node<T> *temp = head;
+        Node<T> *prev = nullptr;
+        while (temp->data != key)
+        {
+            prev = temp;
+            temp = temp->next;
+        }
+        prev->next = newNode;
+        newNode->next = temp;
+        size++;
+    }
+
+    Node<T> *deleteAfter(int key)
+    {
+        Node<T> *temp = head;
+        Node<T> *prev = nullptr;
+        while (temp->data != key)
+        {
+            prev = temp;
+            temp = temp->next;
+        }
+        prev->next = temp->next;
+        delete (temp);
+        size--;
+        return prev->next;
+    }
+
     // void sort()
     // {
     //    Node<T>*temp = head, *temp2 = head;

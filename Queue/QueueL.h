@@ -68,7 +68,6 @@ T Queue<T>::dequeue()
             temp = temp->next;
         }
         T data = temp->data;
-        delete temp;
         return data;
     }
 }
