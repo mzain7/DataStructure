@@ -41,6 +41,8 @@ public:
     bool isBST(Node<T> *root);
     void levelOrderInsertion(Node<T> *root, T data);
     int isAVL(Node<T> *node);
+    void bfs_iterative();
+    void dfs_iterative();
 };
 template <typename T>
 BST<T>::BST(/* args */)
@@ -423,21 +425,79 @@ void BST<T>::levelOrderInsertion(Node<T> *root, T data)
 }
 
 template <class T>
-int BST<T>::isAVL(Node<T> *node){
-    if(node == nullptr){
+int BST<T>::isAVL(Node<T> *node)
+{
+    if (node == nullptr)
+    {
         return 0;
     }
-    else{
+    else
+    {
         int left = isAVL(node->left);
         int right = isAVL(node->right);
-        if(left == -1 || right == -1){
+        if (left == -1 || right == -1)
+        {
             return -1;
         }
-        else if(abs(left - right) > 1){
+        else if (abs(left - right) > 1)
+        {
             return -1;
         }
-        else{
+        else
+        {
             return std::max(left, right) + 1;
         }
+    }
+}
+
+template <typename T>
+void BST<T>::bfs_iterative()
+{
+    if (root != nullptr)
+    {
+        std::queue<Node<T> *> q;
+        Node<T> *temp = root;
+        q.push(temp);
+        while (!q.empty())
+        {
+            temp = q.front();
+            q.pop();
+            std::cout << temp->data << " ";
+            if (temp->left != nullptr)
+            {
+                q.push(temp->left);
+            }
+            if (temp->right != nullptr)
+            {
+                q.push(temp->right);
+            }
+        }
+        std::cout << std::endl;
+    }
+}
+
+template <typename T>
+void BST<T>::dfs_iterative()
+{
+    if (root != nullptr)
+    {
+        std::stack<Node<T> *> s;
+        Node<T> *temp = root;
+        s.push(temp);
+        while (!s.empty())
+        {
+            temp = s.top();
+            s.pop();
+            std::cout << temp->data << " ";
+            if (temp->right != nullptr)
+            {
+                s.push(temp->right);
+            }
+            if (temp->left != nullptr)
+            {
+                s.push(temp->left);
+            }
+        }
+        std::cout << std::endl;
     }
 }
