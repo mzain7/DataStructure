@@ -44,6 +44,9 @@ public:
     void bfs_iterative();
     void dfs_iterative();
     bool isComplete(Node<T> *node);
+    Node<T> *convertToMinHeap(Node<T> *node);
+    void heapifyUp(Node<T> *node);
+    Node<T> *getParent(Node<T> *root, Node<T> *node);
 };
 template <typename T>
 BST<T>::BST(/* args */)
@@ -503,8 +506,8 @@ void BST<T>::dfs_iterative()
     }
 }
 
-
-template<class T> bool BST<T>::isComplete(Node<T> *node)
+template <class T>
+bool BST<T>::isComplete(Node<T> *node)
 {
     if (node == nullptr)
     {
@@ -546,5 +549,67 @@ template<class T> bool BST<T>::isComplete(Node<T> *node)
             }
         }
         return true;
+    }
+}
+
+template <class T>
+void convertToMinHeap(Node<T> *node){
+    if(node == nullptr){
+        return;
+    }
+    else{
+        convertToMinHeap(node->left);
+        convertToMinHeap(node->right);
+        heapifyUp(node);
+    }
+}
+
+
+template <class T>
+void BST<T>::heapifyUp(Node<T> *node)
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+    else
+    {
+        Node<T> *parent = getParent(root, node);
+        if (parent != nullptr)
+        {
+            if (parent->data > node->data)
+            {
+                std::swap(parent->data, node->data);
+                heapifyUp(parent);
+            }
+        }
+    }
+}
+
+template<class T> Node<T> *BST<T>::getParent(Node<T> *root, Node<T> *node)
+{
+    if (root == nullptr)
+    {
+        return nullptr;
+    }
+    else
+    {
+        if (root->left == node || root->right == node)
+        {
+            return root;
+        }
+        else
+        {
+            Node<T> *left = getParent(root->left, node);
+            Node<T> *right = getParent(root->right, node);
+            if (left != nullptr)
+            {
+                return left;
+            }
+            else
+            {
+                return right;
+            }
+        }
     }
 }

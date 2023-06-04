@@ -29,7 +29,8 @@ public:
     Node *deletion(Node *node, int value);
     Node *getChild(Node *node);
     Node *successor(Node *node);
-    void copyNode(Node *node, Node *successor);};
+    void copyNode(Node *node, Node *successor);
+};
 std::string AVL_Tree::preorder(Node *node)
 {
     if (node == nullptr)
@@ -181,17 +182,14 @@ bool AVL_Tree::contain(int value)
     return node;
 }
 
-
 AVL_Tree::AVL_Tree(int *a, int size)
 {
-
 
     for (int i = 0; i < size; i++)
     {
         this->insert(a[i]);
     }
 }
-
 
 AVL_Tree::Node *AVL_Tree::successor(AVL_Tree::Node *node)
 {
@@ -223,7 +221,6 @@ AVL_Tree::Node *AVL_Tree::getChild(AVL_Tree::Node *node)
         return nullptr;
     }
 }
-
 
 AVL_Tree::Node *AVL_Tree::deletion(AVL_Tree::Node *node, int value)
 {
