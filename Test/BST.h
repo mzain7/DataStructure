@@ -94,22 +94,6 @@ void BST<T>::insert(T value)
         }
     }
 }
-
-// void insert(Node<T> *node, T value){
-//     if(node == nullptr){
-//         node = new Node<T>;
-//         node->data = value;
-//     }
-//     else{
-//         if(value > node->data){
-//             insert(node->right, value);
-//         }
-//         else{
-//             insert(node->left, value);
-//         }
-
-//     }
-// }
 template <class T>
 std::string BST<T>::inorder(Node<T> *node)
 {
