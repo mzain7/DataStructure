@@ -43,6 +43,7 @@ public:
     int isAVL(Node<T> *node);
     void bfs_iterative();
     void dfs_iterative();
+    bool isComplete(Node<T> *node);
 };
 template <typename T>
 BST<T>::BST(/* args */)
@@ -499,5 +500,51 @@ void BST<T>::dfs_iterative()
             }
         }
         std::cout << std::endl;
+    }
+}
+
+
+template<class T> bool BST<T>::isComplete(Node<T> *node)
+{
+    if (node == nullptr)
+    {
+        return true;
+    }
+    else
+    {
+        std::queue<Node<T> *> q;
+        q.push(node);
+        Node<T> *temp;
+        bool flag = false;
+        while (!q.empty())
+        {
+            temp = q.front();
+            q.pop();
+            if (temp->left != nullptr)
+            {
+                if (flag)
+                {
+                    return false;
+                }
+                q.push(temp->left);
+            }
+            else
+            {
+                flag = true;
+            }
+            if (temp->right != nullptr)
+            {
+                if (flag)
+                {
+                    return false;
+                }
+                q.push(temp->right);
+            }
+            else
+            {
+                flag = true;
+            }
+        }
+        return true;
     }
 }

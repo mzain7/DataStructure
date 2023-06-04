@@ -26,7 +26,10 @@ public:
     std::string preorder(Node *node);
     void print(Node *node);
     bool contain(int data);
-};
+    Node *deletion(Node *node, int value);
+    Node *getChild(Node *node);
+    Node *successor(Node *node);
+    void copyNode(Node *node, Node *successor);};
 std::string AVL_Tree::preorder(Node *node)
 {
     if (node == nullptr)
@@ -187,4 +190,70 @@ AVL_Tree::AVL_Tree(int *a, int size)
     {
         this->insert(a[i]);
     }
+}
+
+
+AVL_Tree::Node *AVL_Tree::successor(AVL_Tree::Node *node)
+{
+    Node *temp = node->right;
+    while (temp->left != nullptr)
+    {
+        temp = temp->left;
+    }
+    return temp;
+}
+
+void AVL_Tree::copyNode(AVL_Tree::Node *node, AVL_Tree::Node *successor)
+{
+    node->key = successor->key;
+}
+
+AVL_Tree::Node *AVL_Tree::getChild(AVL_Tree::Node *node)
+{
+    if (node->left != nullptr)
+    {
+        return node->left;
+    }
+    else if (node->right != nullptr)
+    {
+        return node->right;
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+
+AVL_Tree::Node *AVL_Tree::deletion(AVL_Tree::Node *node, int value)
+{
+    if (node != nullptr)
+    {
+        if (node->key == value)
+        {
+            if (node->left != nullptr && node->right != nullptr)
+            {
+                Node *successorNode = successor(node);
+                copyNode(node, successorNode);
+                node->right = deletion(node->right, successorNode->key);
+            }
+            else
+            {
+                node = getChild(node);
+            }
+        }
+        else if (value > node->key)
+        {
+            node->right = deletion(node->right, value);
+        }
+        else
+        {
+            node->left = deletion(node->left, value);
+        }
+
+        balance(node);
+        node->height = 1 + std::max(height(node->left), height(node->right));
+        return node;
+    }
+    return node;
 }
