@@ -57,6 +57,23 @@ BST<T>::~BST()
 {
 }
 
+// Node * insert(Node *node, int data)
+// {
+//     if(node==nullptr)
+//     {
+//         node = new Node(data);
+//         return node;
+//     }
+//     if(data<node->data)
+//     {
+//         node->left = insert(node->left, data);
+//     }
+//     else
+//     {
+//         node->right = insert(node->right, data);
+//     }
+//     return node;
+// }
 template <class T>
 void BST<T>::insert(T value)
 {
